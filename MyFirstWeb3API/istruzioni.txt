@@ -1,0 +1,36 @@
+Alloraa
+da premettere che sto usando in chiaro la key del mio wallet, l' indirizzo del mio contratto e la key del mio account Infura.
+Queste api funzionano in questo modo:
+- fate "npm install" sulla cartella del progetto, dovrebbe risolvervi già tutte le dipendenze
+- Con "node index.js" dovrebbe partire il programma con i tutti i miei indirizzi (non fate 3000000 richieste che sono limitate per Infura ahahah)
+
+Le API di questo programma funzionano così:
+dopo aver avviato da terminale, se faccio:
+http://localhost:3000/ -> Mi dà l' indirizzo del mio Wallet che chiama il contratto
+http://localhost:3000/getValue -> Visualizza il valore che il contratto ha salvato sulla blockchain relativo al mio indirizzo
+http://localhost:3000/write/UN_NUMERO_A_CASO -> (Operazione più rompipalle) Chiamo la funzione write del contratto per scrivere un mio valore scelto sulla blockchain (NB: c'è un tempo di attesa di un po' di secondi)
+NB: dopo aver eseguito la write, sulla console appare l'hash della transazione:
+se si copia e la si cerca https://ropsten.etherscan.io/ , si vede lo stato della transazione ed eventualmente il nuovo valore.
+
+FAR FUNZIONARE CON UN PROPRIO CONTRATTO E PROPRIO WALLET + PROPRIO ACCOUNT INFURA
+- Crearsi un proprio portafoglio metamask, riempirlo di eth di test della rete ropsten (vai sul sito https://faucet.egorfine.com/ e fai "Give me Eth")
+- Crearsi un contratto a piacimento su Remix e deployarlo con opzione "Inejected web3" tramite metamask (sarà pubblico su ropsten).
+- Ora bisogna firmare un contratto, se cercate su https://ropsten.etherscan.io/ l' indirizzo del contratto appena creato,
+  vi dice che bisogna firmarlo in modo che lo possano usare utenti esterni. fate la procedura (vi fa poi copiare e incollare il sorgente in una sezione)
+  Se la procedura va a buon fine, ottente l' interfaccia ABI generata (serve per dopo)
+
+- Copiarsi la chiave privata di metamask e incollarla in:
+  const MyprivateKey = "LA_LUNGA_PRIVATEkey"
+
+- Copiare sempre nel codice e copiare l' indirizzo del contratto che ho deployato;
+  const myContractAddress = '0x0ec2Bf2b3Cacde1aa8d1B8B76f469670cF945920';
+
+- Copiarsi l' ABI che ho ottenuto quando ho firmato:
+  const myAbi = METTILO_QUI
+
+- Registrarsi su Infura, verrà fornita un key di progetto da sostiture nel codice:
+  const web3 = new Web3('https://ropsten.infura.io/v3/INSERISCI_QUI');
+
+NB: tra questi passaggi, ci sono sicuramente minipassaggi da sapere o da intuire ed è molto complesso.
+
+HAPPY HACKING ;)

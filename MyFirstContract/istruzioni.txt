@@ -1,0 +1,104 @@
+ ------ TRUFFLE ------
+ La suite è progettata per gestire l’intero flusso di lavoro dei developer
+ blockchain dallo sviluppo dello smart contact fino all’applicazione
+ front-end, con un popolare framework di sviluppo basato su Github stars.
+
+Cartella Migrazioni
+Cos'è una migrazione truffle? In sostanza è uno script
+che definisce Come i contratti verranno distribuiti alla blockchain.
+Facciamo un esempio:
+Hai contratti intelligenti One, Two e Three
+Il contratto intelligente Three contiene un riferimento allo smart contract One
+e richiede l'indirizzo del contratto Two nel suo costruttore.
+Questo esempio richiede che i contratti non solo vengano distribuiti in sequenza,
+ma anche che facciano riferimenti incrociati tra loro.
+Le migrazioni, in poche parole, ci consentono di automatizzare questo processo.
+
+File di configurazione
+Il file di configurazione definisce un paio di cose:
+- Ambienti
+  Sviluppo, TestNet, Live (Produzione).
+  puoi definire l'indirizzo della nota geth, il network_id, gas max
+  per la distribuzione, il prezzo del gas che sei disposto a pagare.
+
+- Struttura del progetto
+- Gestione dei pacchetti
+- Descrizione del progetto
+- Licenza
+
+
+Esecuzione del codice
+- Per compilare i tuoi contratti, esegui questo:
+  truffle compile
+
+- Per eseguire le migrazioni, puoi semplicemente usare questo:
+  truffle migrate
+
+- Oppure puoi farlo specificando un ambiente:
+  truffle migrate --network live
+
+- Per testare i tuoi contratti, esegui questo:
+  truffle test
+
+- Oppure puoi eseguire un file specifica prova eseguendo questo:
+  truffle test ./path/to/FileTest.sol
+
+
+Eseguire il test che si è scritto:
+truffle test
+.. Compilerà il contratto
+
+
+
+GANACHE-CLI --------
+Fornisce una blockchain locale virtuale sulla propria macchina
+creare una blockchain in ram
+
+Creiamo una blockchain locale
+
+Apriamo un nuovo terminale, digitiamo "ganache-cli" e premiamo invio.
+Ganache si occuperà di creare una blockchain in-ram con 10 account dotati di 100 Ethereum ciascuno
+In output riceviamo le chiavi pubbliche e private dei 10 account.
+
+eseguito il comando, rimani la console attiva in ascolto sulla porta specificata.
+______________________
+
+ORA devo deployare con truffle gli smart contract con la blockchain di Ganache.
+- Andare in truffle-config.js -> networks -> Scommenta development
+- ora fai "truffle migrate"
+- Mentra ganache è attivo, vedrai che nel frattempo truffle ci sta scrivendo su
+
+Per provare i metodi del contratto deployato con traffle, tramite una console javascript fai:
+"truffle console"
+e chiama i metodi (vedi sintassi)
+
+
+
+INFURA ------------------
+Permette di connettersi alla blockchain etherium  senza fare il setUp di un
+vero e proprio nodo etherium.
+Una volta ottenuta la key di infura, configuriamo il progetto salvando le key in un file env.
+
+
+DEPLOY SU RETE DI TEST PUBBLICA ---------
+Configurare in -truffle-config.js > networks -> Scommenta ropsten
+poi lanciare da terminale "truffle migrate --network ropsten"
+
+AUTOMATIZZARE VALIDAZIONE SMARTCONTRACT.
+- installare il seguente plugin:
+npm install -D truffle-plugin-verify
+
+- aggiungere nel file truffle-config:
+plugins: [
+  'truffle-plugin-verify'
+],
+api_keys: {
+  etherscan: process.env.ETHERSCAN_API_KEY
+}
+NB: bisogna ottenere una key da ropsten
+
+- Fare migrazione:
+truffle migrate --network rinkeby
+
+- Fare verifica del contratto:
+truffle run verify Casino --network rinkeby
